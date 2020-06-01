@@ -1,8 +1,7 @@
 /*
-** EPITECH PROJECT, 2019
-** MUL_my_defender_2019
-** File description:
-** libc_h
+** Created on Mon Jun 01 2020
+**
+** Copyright (c) 2020 Virgile Agnel
 */
 
 #include "../lib/my/my_printf/include/my.h"

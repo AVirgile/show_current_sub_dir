@@ -1,11 +1,10 @@
 ##
-## EPITECH PROJECT, 2019
-## MUL_my_defender_2019
-## File description:
-## Makefile
+## Created on Mon Jun 01 2020
+##
+## Copyright (c) 2020 Virgile Agnel
 ##
 
-NAME	= a.out
+NAME	= scsd
 
 CC	= gcc
 
