@@ -8,23 +8,17 @@
 
 int decode_mask(short const mask, global *stct)
 {
-    if (mask & a_Flags) {
-        my_printf("flag -> a\n");
-    }
-    if (mask & d_Flags) {
-        my_printf("flag -> d\n");
-    }
-    if (mask & l_Flags) {
-        my_printf("flag -> l\n");
-    }
-    if (mask & f_Flags) {
-        my_printf("flag -> f\n");
-    }
-    if (mask & L_Flags) {
-        my_printf("flag -> L\n");
-    }
-    if (mask & t_Flags) {
-        my_printf("flag -> t\n");
-    }
+    if (mask & a_Flags)
+        stct->values->show_hide = true;
+    if (mask & d_Flags)
+        stct->values->list_dir_only = true;
+    if (mask & l_Flags)
+        stct->values->follow_symLink = true;
+    if (mask & f_Flags)
+        stct->values->print_full_path = true;
+    if (mask & D_Flags)
+        stct->values->fileinfo = DATE;
+    if (mask & t_Flags)
+        stct->values->order = MODIF;
     return (0);
 }

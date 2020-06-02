@@ -12,17 +12,16 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-
-#define NONE (-1)
 
 typedef enum byte_s {
     a_Flags = 1,
     d_Flags = 2,
     l_Flags = 4,
     f_Flags = 8,
-    L_Flags = 16,
+    D_Flags = 16,
     t_Flags = 32,
 } byte;
 
@@ -30,6 +29,11 @@ typedef enum sort_s {
     ALPHA = 1,
     MODIF = 2,
 } sort;
+
+typedef enum info_e {
+    EMPTY = 0,
+    DATE = 1,
+} info;
 
 typedef struct masking_s {
     char opt;
@@ -42,7 +46,7 @@ typedef struct config_s {
     bool list_dir_only;
     bool follow_symLink;
     bool print_full_path;
-    int tree_depth;
+    info fileinfo;
     sort order;
 } config;
 
@@ -56,7 +60,7 @@ static const masking table[] = {
     {'d', d_Flags, false},
     {'l', l_Flags, false},
     {'f', f_Flags, false},
-    {'L', L_Flags, true},
+    {'D', D_Flags, true},
     {'t', t_Flags, false},
     {0, 0, false},
 };
@@ -69,5 +73,6 @@ typedef struct global_s {
 int decode_mask(short const mask, global *stct);
 void free_stct(global *stct);
 int init_config(global *stct);
+int scsd(global *stct, char *path);
 
 #endif /* !scsd_h */

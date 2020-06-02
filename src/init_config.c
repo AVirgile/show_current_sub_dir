@@ -17,7 +17,7 @@ int init_config(global *stct)
     stct->values->list_dir_only = false;
     stct->values->follow_symLink = false;
     stct->values->print_full_path = false;
-    stct->values->tree_depth = NONE;
+    stct->values->fileinfo = EMPTY;
     stct->values->order = ALPHA;
     return (0);
 }
