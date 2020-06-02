@@ -55,6 +55,13 @@ typedef struct file_to_open_s {
     struct file_to_open_s *next;
 } file_to_open;
 
+typedef struct file_list_s {
+    char *name;
+    char *fullpath;
+    bool is_dir;
+    struct file_list_s *next;
+} file_list;
+
 static const masking table[] = {
     {'a', a_Flags, false},
     {'d', d_Flags, false},
@@ -65,6 +72,11 @@ static const masking table[] = {
     {0, 0, false},
 };
 
+typedef struct dir_var_s {
+    DIR *ptr;
+    struct dirent *dp;
+} dir_var;
+
 typedef struct global_s {
     config *values;
     file_to_open *list;
@@ -74,5 +86,9 @@ int decode_mask(short const mask, global *stct);
 void free_stct(global *stct);
 int init_config(global *stct);
 int scsd(global *stct, char *path);
+void free_file_list(file_list **head);
+int recurse_output(file_list *head, global *stct, char *path);
+char *my_pathcat(char *dest, char *src);
+int sort_list(file_list **head, global *stct);
 
 #endif /* !scsd_h */

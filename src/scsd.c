@@ -6,7 +6,7 @@
 
 #include "scsd.h"
 
-static char *my_pathcat(char *dest, char *src)
+char *my_pathcat(char *dest, char *src)
 {
     size_t l_one = my_strlen(dest) + 1;
     size_t l_two = my_strlen(src);
@@ -42,32 +42,49 @@ static bool path_dir(char *path, char *name)
     return (false);
 }
 
-static void recurse(struct dirent *dp, DIR *ptr, char *path, global *stct)
+static int append(char *filename, file_list ***head, char *path, bool dir)
 {
-    while ((dp = readdir(ptr)) != NULL) {
-        if (my_strcmp(".", dp->d_name) != 0 && my_strcmp("..", dp->d_name) != 0) {
-            if (path_dir(path, dp->d_name) == true) {
-                my_printf("_%s\n", dp->d_name);
-                // mettre dans une liste chainée directory pour trier et faire l'output
-                // Etudier les listes chainée pour quelle soit complémentaire au options
-                // deux champs dedans le nom et le path complet impératif de mettre ca oublie pas
-                // ou je péte un cable
-                scsd(stct, my_pathcat(path, dp->d_name));
+    file_list *node = malloc(sizeof(file_list));
+    file_list *tmp = **head;
+
+    if (node == NULL) {
+        my_werror("Error while allocating memory\n");
+        return (84);
+    }
+    node->name = my_strdup(filename);
+    node->fullpath = my_pathcat(path, filename);
+    if (dir == true)
+        node->is_dir = true;
+    else
+        node->is_dir = false;
+    node->next = NULL;
+    if (**head == NULL) {
+        **head = node;
+        return (0);
+    }
+    for (; tmp->next != NULL; tmp = tmp->next);
+    tmp->next = node;
+    return (0);
+}
+
+static int open_directory(dir_var *tools, char *path, global *stct, file_list **head)
+{
+    while ((tools->dp = readdir(tools->ptr)) != NULL) {
+        if (my_strcmp(".", tools->dp->d_name) != 0 && my_strcmp("..", tools->dp->d_name) != 0) {
+            if (path_dir(path, tools->dp->d_name) == true) {
+                if (append(tools->dp->d_name, &head, path, true) == 84) return (84);
             } else {
-                my_printf("___%s\n", dp->d_name);
-                // mettre dans une liste chainée standard pour trier et faire l'output
-                // Etudier les listes chainée pour quelle soit complémentaire au options
-                // deux champs dedans le nom et le path complet impératif de mettre ca oublie pas
-                // ou je péte un cable
+                if (append(tools->dp->d_name, &head, path, false) == 84) return (84);
             }
         }
     }
+    return (0);
 }
 
 int scsd(global *stct, char *path)
 {
-    DIR *ptr = NULL;
-    struct dirent *dp = NULL;
+    dir_var tools = {0};
+    file_list *head = NULL;
     
     if (path == NULL) {
         my_printf(".\n");
@@ -77,13 +94,19 @@ int scsd(global *stct, char *path)
         my_werror("Error while gathering wording dir\n");
         return (84);
     }
-    ptr = opendir(path);
-    if (ptr == NULL) {
+    tools.ptr = opendir(path);
+    if (tools.ptr == NULL) {
         my_werror("Error while opening dir\n");
         return (84);
     }
-    recurse(dp, ptr, path, stct);
-    closedir(ptr);
+    if (open_directory(&tools, path, stct, &head) == 84)
+        return (84);
+    if (sort_list(&head, stct) == 84)
+        return (84);
+    if (recurse_output(head, stct, path) == 84)
+        return (84);
+    free_file_list(&head);
+    closedir(tools.ptr);
     free(path);
     return (0);
 }

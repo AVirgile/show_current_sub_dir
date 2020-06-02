@@ -20,6 +20,21 @@ static void free_file(file_to_open **head)
     *head = NULL;
 }
 
+void free_file_list(file_list **head)
+{
+    file_list *prev = NULL;
+    file_list *tmp = *head;
+
+    while (tmp != NULL) {
+        prev = tmp;
+        tmp = tmp->next;
+        free(prev->name);
+        free(prev->fullpath);
+        free(prev);
+    }
+    *head = NULL;
+}
+
 void free_stct(global *stct)
 {
     free_file(&stct->list);
