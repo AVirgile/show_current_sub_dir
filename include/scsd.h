@@ -15,6 +15,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <time.h>
 
 typedef enum byte_s {
     a_Flags = 1,
