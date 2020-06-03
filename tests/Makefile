@@ -18,6 +18,7 @@ LDFLAGS += -lcriterion -lgcov
 all: $(NAME) run
 
 $(NAME): $(OBJS)
+	make -C ../lib/my
 	gcc -o $(NAME) $(OBJ) $(CFLAGS) $(LDFLAGS)
 
 run:		$(NAME)
