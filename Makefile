@@ -14,8 +14,8 @@ SRCS	= $(wildcard src/*.c) \
 
 OBJS	= $(SRCS:.c=.o)
 
-CFLAGS = -g -I ./include/ -L ./lib/my -lmy
-LDFLAGS += -pipe -Wall -Wextra -Wshadow -Werror -Wuninitialized -Wformat-security
+CFLAGS = -g -I ./include/ -L ./lib/my -pipe -Wall -Wextra -Wshadow -Werror -Wuninitialized -Wformat-security
+LDFLAGS += -lmy
 
 all: $(NAME)
 

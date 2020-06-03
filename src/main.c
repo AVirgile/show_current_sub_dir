@@ -79,7 +79,7 @@ static int get_opt(global *stct, char const *argv[])
     return (0);
 }
 
-int main(int const argc, char const *argv[])
+int main(__attribute__((unused)) int const argc, char const *argv[])
 {
     global stct = {0};
 

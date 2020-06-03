@@ -46,44 +46,44 @@ static void sort_alpha(file_list ***head)
 {
     file_list *tmp = NULL;
     file_list *last = NULL;
-    bool sort = false;
+    bool sorting = false;
 
     do {
-        sort = false;
+        sorting = false;
         tmp = **head;
         while (tmp->next != last) {
             if (my_strcmpi(tmp->name, tmp->next->name) > 0) {
-                sort = true;
+                sorting = true;
                 swap_data(&tmp);
             }
             tmp = tmp->next;
         }
         last = tmp;
-    } while (sort == true);
+    } while (sorting == true);
 }
 
 static int sort_modif(file_list ***head)
 {
     file_list *tmp = NULL;
     file_list *last = NULL;
-    bool sort = false;
+    bool sorting = false;
     int ret = 0;
 
     do {
-        sort = false;
+        sorting = false;
         tmp = **head;
         while (tmp->next != last) {
             ret = check_modification(tmp->fullpath, tmp->next->fullpath);
             if (ret == 84)
                 return (84);
             if (ret == -1) {
-                sort = true;
+                sorting = true;
                 swap_data(&tmp);
             }
             tmp = tmp->next;
         }
         last = tmp;
-    } while (sort == true);
+    } while (sorting == true);
     return (0);
 }
 

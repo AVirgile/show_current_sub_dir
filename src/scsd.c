@@ -67,7 +67,7 @@ static int append(char *filename, file_list ***head, char *path, bool dir)
     return (0);
 }
 
-static int open_directory(dir_var *tools, char *path, global *stct, file_list **head)
+static int open_directory(dir_var *tools, char *path, file_list **head)
 {
     while ((tools->dp = readdir(tools->ptr)) != NULL) {
         if (my_strcmp(".", tools->dp->d_name) != 0 && my_strcmp("..", tools->dp->d_name) != 0) {
@@ -99,7 +99,7 @@ int scsd(global *stct, char *path)
         my_werror("Error while opening dir\n");
         return (84);
     }
-    if (open_directory(&tools, path, stct, &head) == 84)
+    if (open_directory(&tools, path, &head) == 84)
         return (84);
     if (sort_list(&head, stct) == 84)
         return (84);
