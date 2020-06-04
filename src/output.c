@@ -12,12 +12,15 @@ static void additional_info(file_list *file, global *stct)
     time_t date = 0;
     char *result = NULL;
 
+    stat(file->fullpath, &st);
     if (stct->values->fileinfo == DATE) {
-        stat(file->fullpath, &st);
         date = st.st_mtime;
         result = ctime(&date);
         result[my_strlen(result) - 1] = 0;
         my_printf("[%s] ", result);
+    }
+    if (stct->values->fileinfo == SIZE) {
+        my_printf("[%d] ", st.st_size);
     }
 }
 

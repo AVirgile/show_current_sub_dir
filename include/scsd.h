@@ -20,7 +20,7 @@
 typedef enum byte_s {
     a_Flags = 1,
     d_Flags = 2,
-    l_Flags = 4,
+    s_Flags = 4,
     f_Flags = 8,
     D_Flags = 16,
     t_Flags = 32,
@@ -34,6 +34,7 @@ typedef enum sort_s {
 typedef enum info_e {
     EMPTY = 0,
     DATE = 1,
+    SIZE = 2,
 } info;
 
 typedef struct masking_s {
@@ -45,7 +46,6 @@ typedef struct masking_s {
 typedef struct config_s {
     bool show_hide;
     bool list_dir_only;
-    bool follow_symLink;
     bool print_full_path;
     info fileinfo;
     sort order;
@@ -66,7 +66,7 @@ typedef struct file_list_s {
 static const masking table[] = {
     {'a', a_Flags, false},
     {'d', d_Flags, false},
-    {'l', l_Flags, false},
+    {'s', s_Flags, false},
     {'f', f_Flags, false},
     {'D', D_Flags, true},
     {'t', t_Flags, false},

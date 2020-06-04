@@ -12,8 +12,8 @@ int decode_mask(short const mask, global *stct)
         stct->values->show_hide = true;
     if (mask & d_Flags)
         stct->values->list_dir_only = true;
-    if (mask & l_Flags)
-        stct->values->follow_symLink = true;
+    if (mask & s_Flags)
+        stct->values->fileinfo = SIZE;
     if (mask & f_Flags)
         stct->values->print_full_path = true;
     if (mask & D_Flags)
