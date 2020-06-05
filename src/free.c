@@ -20,6 +20,19 @@ static void free_file(file_to_open **head)
     *head = NULL;
 }
 
+static void free_list_opt(opt_info **head)
+{
+    opt_info *prev = NULL;
+    opt_info *tmp = *head;
+
+    while (tmp != NULL) {
+        prev = tmp;
+        tmp = tmp->next;
+        free(prev);
+    }
+    *head = NULL;
+}
+
 void free_file_list(file_list **head)
 {
     file_list *prev = NULL;
@@ -38,5 +51,6 @@ void free_file_list(file_list **head)
 void free_stct(global *stct)
 {
     free_file(&stct->list);
+    free_list_opt(&stct->values->list);
     free(stct->values);
 }

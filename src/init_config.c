@@ -16,7 +16,7 @@ int init_config(global *stct)
     stct->values->show_hide = false;
     stct->values->list_dir_only = false;
     stct->values->print_full_path = false;
-    stct->values->fileinfo = EMPTY;
+    stct->values->list = NULL;
     stct->values->order = ALPHA;
     return (0);
 }

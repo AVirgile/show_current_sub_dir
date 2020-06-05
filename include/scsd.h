@@ -43,11 +43,16 @@ typedef struct masking_s {
     bool arg;
 } masking;
 
+typedef struct opt_info_s {
+    info fileinfo;
+    struct opt_info_s *next;
+} opt_info;
+
 typedef struct config_s {
     bool show_hide;
     bool list_dir_only;
     bool print_full_path;
-    info fileinfo;
+    opt_info *list;
     sort order;
 } config;
 
@@ -72,6 +77,7 @@ static const masking table[] = {
     {'t', t_Flags, false},
     {0, 0, false},
 };
+
 
 typedef struct dir_var_s {
     DIR *ptr;

@@ -13,15 +13,21 @@ static void additional_info(file_list *file, global *stct)
     char *result = NULL;
 
     stat(file->fullpath, &st);
-    if (stct->values->fileinfo == DATE) {
-        date = st.st_mtime;
-        result = ctime(&date);
-        result[my_strlen(result) - 1] = 0;
-        my_printf("[%s] ", result);
+    my_printf("[");
+    for (opt_info *tmp = stct->values->list; tmp != NULL; tmp = tmp->next) {
+        if (tmp->fileinfo == DATE) {
+            date = st.st_mtime;
+            result = ctime(&date);
+            result[my_strlen(result) - 1] = 0;
+            my_printf("%s", result);
+        }
+        if (tmp->fileinfo == SIZE) {
+            my_printf("%d", st.st_size);
+        }
+        if (tmp->next != NULL)
+            my_printf(" ");
     }
-    if (stct->values->fileinfo == SIZE) {
-        my_printf("[%d] ", st.st_size);
-    }
+    my_printf("] ");
 }
 
 static int dir_cases(file_list *tmp, global *stct, char *path)
