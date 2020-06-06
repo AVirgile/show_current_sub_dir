@@ -81,13 +81,13 @@ static int open_directory(dir_var *tools, char *path, file_list **head)
     return (0);
 }
 
-int scsd(global *stct, char *path)
+int scsd(global *stct, char *path, unsigned int indentation)
 {
     dir_var tools = {0};
     file_list *head = NULL;
     
     if (path == NULL) {
-        my_printf(".\n");
+        my_printf("\e[0;34m.\n\x1b[0m");
         path = getcwd(path, 0);
     }
     if (path == NULL) {
@@ -103,7 +103,7 @@ int scsd(global *stct, char *path)
         return (84);
     if (sort_list(&head, stct) == 84)
         return (84);
-    if (recurse_output(head, stct, path) == 84)
+    if (recurse_output(head, stct, path, indentation) == 84)
         return (84);
     free_file_list(&head);
     closedir(tools.ptr);

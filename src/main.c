@@ -87,7 +87,7 @@ int main(__attribute__((unused)) int const argc, char const *argv[])
         return (84);
     if (get_opt(&stct, argv) == 84)
         return (84);
-    if (scsd(&stct, NULL) == 84)
+    if (scsd(&stct, NULL, 0) == 84)
         return (84);
     free_stct(&stct);
     return (0);

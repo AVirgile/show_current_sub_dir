@@ -78,7 +78,6 @@ static const masking table[] = {
     {0, 0, false},
 };
 
-
 typedef struct dir_var_s {
     DIR *ptr;
     struct dirent *dp;
@@ -92,9 +91,9 @@ typedef struct global_s {
 int decode_mask(short const mask, global *stct);
 void free_stct(global *stct);
 int init_config(global *stct);
-int scsd(global *stct, char *path);
+int scsd(global *stct, char *path, unsigned int indentation);
 void free_file_list(file_list **head);
-int recurse_output(file_list *head, global *stct, char *path);
+int recurse_output(file_list *head, global *stct, char *path, unsigned int intern);
 char *my_pathcat(char *dest, char *src);
 int sort_list(file_list **head, global *stct);
 
