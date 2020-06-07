@@ -21,12 +21,12 @@ $> scsd [potential flags] ...
 ```
 ### all the flags currently implemented
 
--a : show all hiden directories except for '..'
--d : show only the directories
--s : show the size of the different files and directories
--f : show the fullpath instead of the name of the different files and directories
--D : show the date of the last modification of the different files and directories
--t : sort the file from the last modified file to the more recent modify file
+* -a : show all hiden directories except for '..'
+* -d : show only the directories
+* -s : show the size of the different files and directories
+* -f : show the fullpath instead of the name of the different files and directories
+* -D : show the date of the last modification of the different files and directories
+* -t : sort the file from the last modified file to the more recent modify file
 
 this flags can be combine together to achieve a more detail output
 
