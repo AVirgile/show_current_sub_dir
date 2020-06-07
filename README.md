@@ -5,7 +5,7 @@ This is a CLI program to show all the sub directories and their content from the
 ## How to install
 
 ```
-$> git clone 
+$> git clone https://github.com/AVirgile/show_current_sub_dir.git
 $> cd setup_scripts
 $> ./install.sh
 ```
